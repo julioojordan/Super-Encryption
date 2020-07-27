@@ -1,15 +1,16 @@
 #======================================================
-# ENKRIPSI DEKRIPSI MENGGUNAKAN SUPER ENKRIPSI CIPHER||
+# ENCRYPTION DECRYPTION USING SUPER ENKRIPSI CIPHER||
 # JULIO ADNYAN JORDAN ARYANTO (24060117130078)       ||
 #                                                    ||
 #CATATAN:                                            ||
-# substitusi yang digunakan adalah Caesar Cipher     ||
+# SUBTITUTION METHOD used is Caesar Cipher Method    ||
 #======================================================
-#MULAI
+#languages ind / eng
+#MULAI / Start
 
 #from array import *
-# Inisialisasi
-# Fungsi Enkripsi Substitusi Caesar Cipher
+# Inisialisasi / Initiate
+# Fungsi Enkripsi Substitusi Caesar Cipher / Caesar Cipher Substitution Encryption Function
 def SEnkripsi(Kar):
     if Kar == 'A' :
         return 'D'
@@ -123,20 +124,20 @@ def SDekripsi(Kar):
     else :
         return ''
 
-#nilai Dummy D
+#Dummy D
 D = "X"
 
-#Realisasi
+#Realisasi / Realitation
 
 def begin():
     print ("=================================")
 
-    print ("Apa yang ingin Dilakukan ?")
-    print ("1. Enkripsi dengan Super Enkripsi")
-    print ("2. Dekripsi dengan Super Enkripsi")
+    print ("Apa yang ingin Dilakukan ?") # what you want to do
+    print ("1. Enkripsi dengan Super Enkripsi") # encryption
+    print ("2. Dekripsi dengan Super Enkripsi") # decryption
     print ("=================================")
 
-    pil = input("Masukan Pilihan Anda:")
+    pil = input("Masukan Pilihan Anda:") #select your choice
 
     if pil == '1':
         Enkripsi()
@@ -148,37 +149,36 @@ def begin():
 
 #==============================
 def Enkripsi():
-    #list untuk hasil enkripsi
-    Eteks1 = [] #hasil untuk enkripsi substitusi
-    Eteks2 = [] #hasil untuk enkripsi transposisi
+    #list untuk hasil enkripsi dan deckripsi / list for encryption and decryption result
+    Eteks1 = [] #hasil untuk enkripsi substitusi /list for subtitution encryption result
+    Eteks2 = [] #hasil untuk enkripsi transposisi /list for transposition encryption result
 
-    teks = input("Masukan Plainteks : ")
-    k = input("Masukan Nilai K : ")
+    teks = input("Masukan Plainteks : ") #inputing the plaintext
+    k = input("Masukan Nilai K : ") #input k
     k = int(k)
-    #mengubah semua inputan teks menjadi kapital
+    #mengubah semua inputan teks menjadi kapital / capitalized the input
     Uteks = teks.upper()
-    #menghilangkan spasi di Cteks
+    #menghilangkan spasi di Cteks / removing space
     Ateks = []
     for j in range(len(Uteks)):
         if Uteks[j] != ' ' :
             Ateks.append(Uteks[j])
-    #print(Ateks)
 
-    #----- Tahap 1 -----
-    #Melakukan enkripsi substitusi
+    #----- Tahap 1 ----- / step 1
+    #Melakukan enkripsi substitusi / subtitution encryption process
     for i in range(len(Ateks)):
         Eteks1.append(SEnkripsi(Ateks[i]))
-    #----- END Tahap 1 -----
+    #----- END Tahap 1 ----- / end step 1
 
-    #----- Tahap 2 -----
-    # Melakukan Enkripsi Transposisi
-    # (1) Menambahkan nilai dummy ke teks apabila Eteks1 mod k != 0
+    #----- Tahap 2 ----- / step 2
+    # Melakukan Enkripsi Transposisi / transposition encryption process
+    # (1) Menambahkan nilai dummy ke teks apabila Eteks1 mod k != 0 / adding the dummy value "X" when Eteks 1 mod k != 0
     if (len(Eteks1)%k != 0):
         batas = k - len(Eteks1)%k
         for i in range(batas):
             Eteks1.append("X")
             
-    # (2) Memasukan nilai Eteks1 kedalam matrix transposisi
+    # (2) Memasukan nilai Eteks1 kedalam matrix transposisi / inputing Eteks to array matrix_transposisi
     count_baris = int(len(Eteks1)/k)
     count_kolom = int(len(Eteks1)/count_baris)
     matrix_transposisi = [[] for k in range(count_baris)]
@@ -187,9 +187,8 @@ def Enkripsi():
         for kolom in range(count_kolom):
             matrix_transposisi[baris].append(Eteks1[counter])
             counter = counter + 1
-    #print(matrix_transposisi)
     
-    # (3) Melakukan transpose matrix untuk mendapatkan Cipherteks
+    # (3) Melakukan transpose matrix untuk mendapatkan Cipherteks / do the transposition process to the matrix_transposisi to get the ciphertexts
     temp_row = []
     tranpose_matrix = []
 
@@ -198,47 +197,45 @@ def Enkripsi():
             temp_row.append(matrix_transposisi[baris][kolom])
         tranpose_matrix.append(temp_row)
         temp_row = []
-    #print(tranpose_matrix)
 
-    # (4) Memasukan hasil tranpose kedalam Eteks2 secara horizontal
+    # (4) Memasukan hasil tranpose kedalam Eteks2 secara horizontal / inputing the result of transpose_matrix horizontally to Eteks2
     for baris in range(len(tranpose_matrix)):
         for kolom in range(len(tranpose_matrix[0])):
             Eteks2.append(tranpose_matrix[baris][kolom])
-    #print(Eteks2)
 
-    # (5) Menampilkan Hasil
+    # (5) Menampilkan Hasil / showigng the result
     print ("Cipherteks yang didapatkan dari enkripsi Super Enkripsi adalah ="+" ".join(Eteks2))
     begin()
-    #----- END Tahap 2 -----
+    #----- END Tahap 2 ----- / end step 2
 #==============================
 
 #==============================
 def Dekripsi():
-    teks = input("Masukan Cipherteks : ")
-    k = input("Masukan Nilai K : ")
+    teks = input("Masukan Cipherteks : ") #inputting the cipherteks
+    k = input("Masukan Nilai K : ") #input k
     k = int(k)
-    #mengubah semua inputan teks menjadi kapital
+    #mengubah semua inputan teks menjadi kapital / capitalized the input
     Uteks = teks.upper()
-    #menghilangkan spasi di Cteks
+    #menghilangkan spasi di Cteks / removing space from the Cteks
     Ateks = []
     for j in range(len(Uteks)):
         if Uteks[j] != ' ' :
             Ateks.append(Uteks[j])
     print(Ateks)
 
-    #----- Tahap 1 -----
-    #Melakukan Dekripsi transposisi
+    #----- Tahap 1 ----- / step 1
+    #Melakukan Dekripsi transposisi / transposition decryption process
     n = 1 
     while(n <= k):
-        #List untuk hasil Dekripsi 
-        Dteks1 = [] #hasil untuk dekripsi transposisi
-        Dteks2 = [] #hasil untuk dekripsi Substitusi
-        # (1) Menambahkan nilai dummy ke teks apabila Ateks mod k != 0
+        #List untuk hasil Dekripsi / list for dedcryption resut
+        Dteks1 = [] #hasil untuk dekripsi transposisi / list for transposition decryption
+        Dteks2 = [] #hasil untuk dekripsi Substitusi / list for subtitution decryption
+        # (1) Menambahkan nilai dummy ke teks apabila Eteks1 mod k != 0 / adding the dummy value "X" when Eteks 1 mod k != 0
         if (len(Ateks)%k != 0):
             batas = k - len(Ateks)%k
             for i in range(batas):
                 Ateks.append("X")
-        # (2) Memasukan nilai Ateks kedalam matrix transposisi 
+        # (2) Memasukan nilai Ateks kedalam matrix transposisi  / adding Ateks to materix_transposisi
         matrix_transposisi = [[] for b in range(n)]
         count_baris = len(matrix_transposisi)
         count_kolom = int(len(Ateks)/k)
@@ -258,18 +255,18 @@ def Dekripsi():
             tranpose_matrix.append(temp_row)
             temp_row = []
 
-        # (4) Memasukan Hasil Tranpose Ke dalam Dteks1
+        # (4) Memasukan Hasil Tranpose Ke dalam Dteks1 / inputing result to Dteks1
         for baris in range(len(tranpose_matrix)):
             for kolom in range(len(tranpose_matrix[0])):
                 Dteks1.append(tranpose_matrix[baris][kolom])
-        #----- END Tahap 1 -----
+        #----- END Tahap 1 ----- / end step 1
 
 
-        #----- Tahap 2 -----
-        #melakukan dekripsi substitusi dari Dteks1
+        #----- Tahap 2 ----- / step 2
+        #melakukan dekripsi substitusi dari Dteks1 / do the subtitution decryption from Dteks1
         for i in range(len(Dteks1)):
             Dteks2.append(SDekripsi(Dteks1[i]))
-        #----- END Tahap 2 -----
+        #----- END Tahap 2 ----- / end step 2
         print ("Plainteks yang didapatkan dari dekripsi Super Enkripsi dengan k =",n,"adalah ="+" ".join(Dteks2))
         n = n + 1
     begin()
